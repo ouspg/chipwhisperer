@@ -4,6 +4,9 @@
 ### Notebooks ###
 jupyter/*.*
 !jupyter/*.ipynb
+!jupyter/PA_SPA_1_answers.py
+jupyter/Helper_Scripts/*.*
+!jupyter/Helper_Scripts/*.ipynb
 ### Other ###
 .idea
 __pycache__/

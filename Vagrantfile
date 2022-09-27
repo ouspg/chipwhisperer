@@ -2,13 +2,7 @@
  Vagrant.configure("2") do |config|
   config.vm.box = "generic/alpine316"
   config.vm.network "forwarded_port", guest: 8888, host: 8888
-  
-  config.vm.provision "file", source: "run.sh", destination: "/home/vagrant/run.sh"
-  config.vm.provision "file", source: "jupyter_notebook_config.py", destination: "/home/vagrant/.jupyter/jupyter_notebook_config.py"
   config.vm.provision "shell", path: "setup.sh", env: {"REPO_URL" => ENV['REPO_URL']}
-  
-  # config.vm.provision "shell", inline: "DEBIAN_FRONTEND=noninteractive apt-get install make; DEBIAN_FRONTEND=noninteractive make"
-  
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--usb", "on"]
     vb.customize ["modifyvm", :id, "--usbxhci", "on"]

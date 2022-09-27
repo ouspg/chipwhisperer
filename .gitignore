@@ -1,0 +1,20 @@
+### Root ###
+!.gitignore
+!50-newae.rules
+### Notebooks ###
+jupyter/*.*
+!jupyter/*.ipynb
+### Other ###
+.idea
+__pycache__/
+*.ipynb_checkpoints*
+hardware/victims/firmware/*/*.elf
+hardware/victims/firmware/*/*.eep
+hardware/victims/firmware/*/*.hex
+hardware/victims/firmware/*/*.lss
+hardware/victims/firmware/*/*.map
+hardware/victims/firmware/*/*.sym
+hardware/victims/firmware/simpleserial-*/simpleserial-*-CW*
+hardware/victims/firmware/basic-passwdcheck/basic-passwdcheck-CW*
+hardware/victims/firmware/simpleserial-base-lab*
+!hardware/victims/firmware/hal/**

@@ -4,7 +4,7 @@
 # packages
 apk update
 sed 's http: https: ' -i /etc/apk/repositories
-sed 's ^#\(https://[^/]*/alpine/v[^/]*/community)$ \1 ' -i /etc/apk/repositories
+sed 's ^#\(https://[^/]*/alpine/v[^/]*/community\)$ \1 ' -i /etc/apk/repositories
 apk update
 apk add python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi make nano udev busybox-initscripts sudo bash
 

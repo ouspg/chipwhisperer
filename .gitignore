@@ -1,6 +1,3 @@
-### Root ###
-!.gitignore
-!50-newae.rules
 ### Notebooks ###
 jupyter/*.*
 !jupyter/*.ipynb
@@ -21,3 +18,4 @@ hardware/victims/firmware/simpleserial-*/simpleserial-*-CW*
 hardware/victims/firmware/basic-passwdcheck/basic-passwdcheck-CW*
 hardware/victims/firmware/simpleserial-base-lab*
 !hardware/victims/firmware/hal/**
+.vagrant

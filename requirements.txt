@@ -1,0 +1,13 @@
+### Most Important ###
+chipwhisperer
+jupyter
+### Other ###
+jupyter_contrib_nbextensions
+holoviews
+bokeh
+phoenixAES
+matplotlib
+tqdm
+ipywidgets
+terminaltables
+scipy

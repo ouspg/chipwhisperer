@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
 # https://github.com/newaetech/chipwhisperer-vagrant/blob/4485766ac6648e18d1bdca8f1856d23504a9b0fb/setup.sh
 
-# system
-setup-keymap fi fi-winkeys
-setup-hostname compsec-chipwhisperer
-
 # packages
-apk update
-sed 's http: https: ' -i /etc/apk/repositories
-sed 's ^#\(https://[^/]*/alpine/v[^/]*/community\)$ \1 ' -i /etc/apk/repositories
+apt-get update
+apt-get install --no-install-recommends -y keyboard-configuration
 sed 's XKBLAYOUT=\"\w*" XKBLAYOUT=\"fi\" g' -i /etc/default/keyboard
-apk update
-apk add python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi make nano udev busybox-initscripts sudo bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev
+apt-get install --no-install-recommends -y ca-certificates gcc-avr avr-libc gcc-arm-none-eabi
+apt-get install --no-install-recommends -y python3 python3-dev python3-pip python3-wheel git make nano libusb-dev libmpfr-dev libgmp-dev libmpc-dev libusb-1.0-0
 
 # repo
 git clone --depth=1 $REPO_URL chipwhisperer
@@ -29,7 +24,6 @@ echo "@reboot /home/vagrant/run.sh" | crontab -u vagrant -
 
 # usb
 cp *-newae.rules /etc/udev/rules.d/
-addgroup -S plugdev
 addgroup vagrant plugdev
 addgroup vagrant dialout
 udevadm control --reload-rules
@@ -43,6 +37,7 @@ git config --global user.email "example@example.com"
 
 # setup python
 python3 -m pip install --upgrade pip
+pi3 install libusb1
 pip3 install --no-warn-script-location -r requirements.txt
 
 # setup jupyter
@@ -59,4 +54,5 @@ python3 -c "import os; from notebook.auth import passwd; print('\nc.NotebookApp.
 EOF
 
 # done
+usermod --password $(echo vagrant | openssl passwd -1 -stdin) vagrant
 reboot

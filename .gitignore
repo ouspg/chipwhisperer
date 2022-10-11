@@ -19,3 +19,4 @@ hardware/victims/firmware/basic-passwdcheck/basic-passwdcheck-CW*
 hardware/victims/firmware/simpleserial-base-lab*
 !hardware/victims/firmware/hal/**
 .vagrant
+.DS_Store

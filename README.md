@@ -5,8 +5,36 @@ Configuration and build files for OCI-based ChipWhisperer environment image, whi
 
 ## Usage
 
-The image expects that the ChipWhisperer device is correctly configured on the host Linux machine.
-This means, that `udev` rules have been correctly applied, as described in he file [50-newae.rules.](50-newae.rules)
+The environment requires access into the ChipWhisperer device, which is located in `/dev/bus/usb`.
+By default, regular user probably does not have enough permissions to use it.
+
+Permissions can be obtained in few ways without making them too board:
+
+1. Temporally by chown'ing the correct device from `/dev/bus/usb` to reflect desired UID:GID
+2. Permanently by modifying `udev` rules
+
+To find the correct bus, you could use command `lsusb` (required metadata package to show more details).
+`2b3e` is vendor ID of ChipWhisperer.
+
+```console
+14c6ede0c643:/home/appuser# lsusb
+Bus 004 Device 001: ID 1d6b:0003 Linux 6.2.10-1-aarch64-ARCH xhci-hcd xHCI Host Controller
+Bus 001 Device 002: ID 2b3e:ace0 NewAE Technology Inc. ChipWhisperer Nano 
+```
+
+Then give permissions for the desired user. 
+```console
+chown appuser:appuser /dev/bus/usb/001/002
+```
+If you want to give these permissions for the container user after starting it, you can `exec` into it:
+```console
+docker exec -it --user=root cwtest bash
+```
+And do the previous.
+
+
+Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect the container as well.
+This means, that `udev` rules have been applied, as described in he file [50-newae.rules.](50-newae.rules)
 Copy it as:
 
 ```console

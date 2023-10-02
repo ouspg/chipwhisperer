@@ -1,8 +1,8 @@
 # Base Alpine Image
 FROM alpine:latest
-LABEL description="Docker image for ChipWhisperer platform on Alpine Linux" \
-      url="https://github.com/ouspg/chipwhisperer"
-LABEL org.opencontainers.image.source https://github.com/ouspg/chipwhisperer
+
+LABEL org.opencontainers.image.description "Docker image for ChipWhisperer platform on Alpine Linux with CW303 and CWNANO support."
+LABEL org.opencontainers.image.source "https://github.com/ouspg/chipwhisperer"
 
 ENV USER="appuser"
 

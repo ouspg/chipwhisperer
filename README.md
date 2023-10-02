@@ -3,6 +3,8 @@
 
 Configuration and build files for OCI-based ChipWhisperer environment image, which supports CW303 and CWNANO devices. 
 
+The environment is used in the [Software and Hardware Security course](https://github.com/ouspg/SoftwareHardwareSec), in the exercise week 5.
+
 ## Usage
 
 The environment requires access into the ChipWhisperer device, which is located in `/dev/bus/usb/`.

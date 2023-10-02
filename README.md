@@ -28,7 +28,8 @@ Then give permissions for the desired user.
 ```console
 chown appuser:appuser /dev/bus/usb/001/002
 ```
-If you want to give these permissions for the container user after starting it, you can `exec` into it:
+If you want to give these permissions for the container user after starting it, you can `exec` into it.
+Check a bit more below how to start the container.
 ```console
 docker exec -it --user=root cwtest bash
 ```

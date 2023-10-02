@@ -23,7 +23,7 @@ Now, you will need to reboot.
 
 
 These rules will set correct group permission (of group `chipwhisperer`) for the devices when they appear in `/dev/bus/usb` directory.
-We could use these inside the container if we ran the container as as privileged, but we will avoid that.
+We could use `udev` rules inside the container as well if we ran the container as as privileged, but we will avoid that.
 
 > The group ID must be the same in the container as in the host system for non-root user to work.
 

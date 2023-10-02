@@ -35,7 +35,8 @@ And do the previous.
 
 Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect the container as well.
 This means, that `udev` rules have been applied, as described in he file [50-newae.rules.](50-newae.rules)
-Copy it as:
+
+To set `udev` correctly, copy it as:
 
 ```console
 sudo cp 50-newae.rules /etc/udev/rules.d/
@@ -57,9 +58,6 @@ We could use `udev` rules inside the container as well if we ran the container a
 > The group ID must be the same in the container as in the host system for non-root user to work.
 
 Currently, gid is `1999` in the container.  
-
-To set `udev` correctly, c
-
 
 
 For running the container, use:

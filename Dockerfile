@@ -39,7 +39,7 @@ RUN python3 -c "import os;from jupyter_server.auth import passwd; print('\nc.Ser
 COPY  --chown=$USER firmware /home/appuser/firmware
 COPY --chown=$USER jupyter /home/appuser/jupyter
 
-WORKDIR /home/appuser
+WORKDIR /home/appuser/jupyter
 
 # Expose Jupyter port
 EXPOSE 8888

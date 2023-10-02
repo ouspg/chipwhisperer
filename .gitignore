@@ -20,3 +20,4 @@ hardware/victims/firmware/simpleserial-base-lab*
 !hardware/victims/firmware/hal/**
 .vagrant
 .DS_Store
+tmp

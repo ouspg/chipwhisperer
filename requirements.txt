@@ -1,6 +1,7 @@
 ### Most Important ###
 chipwhisperer
 jupyter
+pyusb
 ### Other ###
 jupyter_contrib_nbextensions
 holoviews

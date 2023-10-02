@@ -33,8 +33,8 @@ docker exec -it --user=root cwtest bash
 And do the previous.
 
 
-Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect the container as well.
-This means, that `udev` rules have been applied, as described in he file [50-newae.rules.](50-newae.rules)
+Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect to the container as well.
+This means, that `udev` rules have been applied, as described in the file [50-newae.rules.](50-newae.rules)
 
 To set `udev` correctly, copy it as:
 

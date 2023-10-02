@@ -9,7 +9,7 @@ ENV USER="appuser"
 # System setup
 RUN echo "chipwhisperer" > /etc/hostname && \
     apk update && \
-    apk add --no-cache python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi libc-dev musl-dev newlib-arm-none-eabi make nano vim udev bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev libffi-dev
+    apk add --no-cache python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi libc-dev musl-dev newlib-arm-none-eabi make nano vim udev bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev libffi-dev usbutils
 
 RUN addgroup -S $USER && \
     adduser -s /sbin/nologin --disabled-password -G $USER $USER &&  \

@@ -13,7 +13,7 @@ Permissions can be obtained in few ways without making them too board:
 1. Temporally by chown'ing the correct device from `/dev/bus/usb/` to reflect desired UID:GID
 2. Permanently by modifying `udev` rules
 
-To find the correct bus, you could use command `lsusb` (required metadata package to show more details).
+To find the correct bus, you could use command `lsusb` (requires USB metadata package to show more details).
 `2b3e` is vendor ID of ChipWhisperer.
 
 ```console

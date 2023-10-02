@@ -18,10 +18,7 @@ RUN addgroup -S $USER && \
     addgroup "$USER" chipwhisperer && \
     addgroup "$USER" dialout 
 
-
-# COPY run.sh /home/appuser/run.sh
 COPY --chown=$USER jupyter_notebook_config.py /home/$USER/.jupyter/
-
 # USB setup
 COPY *-newae.rules /etc/udev/rules.d/
 

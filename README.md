@@ -1,7 +1,7 @@
 
 # Reduced ChipWhisperer environment repo for CW303 and CWNANO 
 
-
+Configuration and build files for OCI-based ChipWhisperer environment image, which supports CW303 and CWNANO devices. 
 
 ## Usage
 
@@ -37,8 +37,10 @@ For running the container, use:
 
 ```console
 docker run -it --rm  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name cwtest ghcr.io/ouspg/chipwhisperer:latest
-
 ```
+
+You can find jupyter notebooks from `localhost:8888`, and the password is `jupyter`.
+
 
 ## Building
 

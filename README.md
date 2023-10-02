@@ -5,12 +5,12 @@ Configuration and build files for OCI-based ChipWhisperer environment image, whi
 
 ## Usage
 
-The environment requires access into the ChipWhisperer device, which is located in `/dev/bus/usb`.
+The environment requires access into the ChipWhisperer device, which is located in `/dev/bus/usb/`.
 By default, regular user probably does not have enough permissions to use it.
 
 Permissions can be obtained in few ways without making them too board:
 
-1. Temporally by chown'ing the correct device from `/dev/bus/usb` to reflect desired UID:GID
+1. Temporally by chown'ing the correct device from `/dev/bus/usb/` to reflect desired UID:GID
 2. Permanently by modifying `udev` rules
 
 To find the correct bus, you could use command `lsusb` (required metadata package to show more details).

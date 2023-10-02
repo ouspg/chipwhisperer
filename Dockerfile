@@ -2,20 +2,21 @@
 FROM alpine:latest
 LABEL description="Docker image for ChipWhisperer platform on Alpine Linux" \
       url="https://github.com/ouspg/chipwhisperer"
+LABEL org.opencontainers.image.source https://github.com/ouspg/chipwhisperer
 
 ENV USER="appuser"
 
 # System setup
 RUN echo "chipwhisperer" > /etc/hostname && \
     apk update && \
-    apk add python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi newlib-arm-none-eabi make nano udev sudo bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev
+    apk add python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi libc-dev musl-dev newlib-arm-none-eabi make nano vim udev bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev libffi-dev
 
-# Clone ChipWhisperer repository
-# ARG REPO_URL=https://github.com/newaetech/chipwhisperer.git
-# RUN git clone --depth=1 $REPO_URL chipwhisperer
-
-RUN addgroup -S appuser && \
-adduser -s /sbin/nologin --disabled-password -G appuser appuser
+RUN addgroup -S $USER && \
+    adduser -s /sbin/nologin --disabled-password -G $USER $USER &&  \
+    addgroup -S plugdev && addgroup -g 1999 chipwhisperer && \
+    addgroup "$USER" plugdev && \
+    addgroup "$USER" chipwhisperer && \
+    addgroup "$USER" dialout 
 
 
 # COPY run.sh /home/appuser/run.sh
@@ -23,10 +24,6 @@ COPY --chown=$USER jupyter_notebook_config.py /home/$USER/.jupyter/
 
 # USB setup
 COPY *-newae.rules /etc/udev/rules.d/
-RUN addgroup -S plugdev && addgroup -g 1001 chipwhisperer && \
-    addgroup "$USER" plugdev && \
-    addgroup "$USER" chipwhisperer && \
-    addgroup "$USER" dialout 
 
 USER appuser
 COPY requirements.txt requirements.txt
@@ -51,4 +48,3 @@ ENV PATH="/home/appuser/.local/bin:$PATH"
 
 # Command to start the container
 CMD ["jupyter", "notebook", "--no-browser"]
-# --device=/dev/bus/usb/001/007

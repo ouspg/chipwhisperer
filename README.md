@@ -24,7 +24,7 @@ Bus 004 Device 001: ID 1d6b:0003 Linux 6.2.10-1-aarch64-ARCH xhci-hcd xHCI Host 
 Bus 001 Device 002: ID 2b3e:ace0 NewAE Technology Inc. ChipWhisperer Nano
 ```
 
-Then give permissions for the desired user.
+Then give permissions for the desired user. (change the bus and device number accordingly)
 ```console
 chown <username>:<username> /dev/bus/usb/001/002
 ```

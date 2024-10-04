@@ -28,16 +28,17 @@ Then give permissions for the desired user.
 ```console
 chown <username>:<username> /dev/bus/usb/001/002
 ```
-If you want to give these permissions for the container user after starting it, you can `exec` into it.
+If you want to give these permissions for the container user (`appuser`) after starting it, you can `exec` into it.
 Check a bit more below how to start the container.
 ```console
 docker exec -it --user=root cwtest bash
 ```
 And do the previous.
 
+<details>
+<summary>Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect to the container as well.</summary>
 
-Alternatively, we can correctly configure the host Linux machine to use `udev` rules, which will reflect to the container as well.
-This means, that `udev` rules have been applied, as described in the file [50-newae.rules.](50-newae.rules)
+This means that `udev` rules have been applied, as described in the file [50-newae.rules.](50-newae.rules)
 
 To set `udev` correctly, copy it as:
 
@@ -53,14 +54,14 @@ sudo usermod -aG $USER
 
 Now, you will need to reboot.
 
-
 These rules will set correct group permission (of group `chipwhisperer`) for the devices when they appear in `/dev/bus/usb` directory.
-We could use `udev` rules inside the container as well if we ran the container as as privileged, but we will avoid that.
+We could use `udev` rules inside the container as well if we ran the container as privileged, but we will avoid that.
 
 > **Note**
 > The group ID must be the same in the container as in the host system for non-root user to work.
 
 Currently, gid is `1999` in the container.
+</details>
 
 
 ## For running the container, use:

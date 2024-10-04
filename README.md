@@ -1,7 +1,7 @@
 
-# Reduced ChipWhisperer environment repo for CW303 and CWNANO 
+# Reduced ChipWhisperer environment repo for CW303 and CWNANO
 
-Configuration and build files for OCI-based ChipWhisperer environment image, which supports CW303 and CWNANO devices. 
+Configuration and build files for OCI-based ChipWhisperer environment image, which supports CW303 and CWNANO devices.
 
 The environment is used in the [Software and Hardware Security course](https://github.com/ouspg/SoftwareHardwareSec), in the exercise week 5.
 
@@ -12,7 +12,7 @@ By default, regular user probably does not have enough permissions to use it.
 
 Permissions can be obtained in few ways without making them too board:
 
-1. Temporally by chown'ing the correct device from `/dev/bus/usb/` to reflect desired UID:GID
+1. Temporally by chown'ing the correct device from `/dev/bus/usb/` to reflect desired UID:GID (FASTEST!)
 2. Permanently by modifying `udev` rules
 
 To find the correct bus, you could use command `lsusb` (requires USB metadata package to show more details).
@@ -21,12 +21,12 @@ To find the correct bus, you could use command `lsusb` (requires USB metadata pa
 ```console
 14c6ede0c643:/home/appuser# lsusb
 Bus 004 Device 001: ID 1d6b:0003 Linux 6.2.10-1-aarch64-ARCH xhci-hcd xHCI Host Controller
-Bus 001 Device 002: ID 2b3e:ace0 NewAE Technology Inc. ChipWhisperer Nano 
+Bus 001 Device 002: ID 2b3e:ace0 NewAE Technology Inc. ChipWhisperer Nano
 ```
 
-Then give permissions for the desired user. 
+Then give permissions for the desired user.
 ```console
-chown appuser:appuser /dev/bus/usb/001/002
+chown <username>:<username> /dev/bus/usb/001/002
 ```
 If you want to give these permissions for the container user after starting it, you can `exec` into it.
 Check a bit more below how to start the container.
@@ -60,10 +60,10 @@ We could use `udev` rules inside the container as well if we ran the container a
 > **Note**
 > The group ID must be the same in the container as in the host system for non-root user to work.
 
-Currently, gid is `1999` in the container.  
+Currently, gid is `1999` in the container.
 
 
-For running the container, use:
+## For running the container, use:
 
 ```console
 docker run -it --rm  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name cwtest ghcr.io/ouspg/chipwhisperer:latest

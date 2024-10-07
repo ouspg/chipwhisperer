@@ -1,14 +1,20 @@
 ### Most Important ###
 chipwhisperer
-jupyter
+nbclassic
+# jupyter
 pyusb
 ### Other ###
 jupyter_contrib_nbextensions
 holoviews
-bokeh
+bokeh == 2.4.3
 phoenixAES
 matplotlib
 tqdm
+# numpy == 1.24
+numpy
 ipywidgets
 terminaltables
 scipy
+nbstripout
+ipympl
+param<2

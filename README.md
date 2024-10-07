@@ -5,7 +5,10 @@ Configuration and build files for OCI-based ChipWhisperer environment image, whi
 
 The environment is used in the [Software and Hardware Security course](https://github.com/ouspg/SoftwareHardwareSec), in the exercise week 5.
 This particular environment is intended for *Linux systems*.
-If you cannot use one, you need to consult the official instructions for installing in platforms, and then use the provided notebooks from here.
+
+Unfortunately, the current version of the notebooks requires some legacy versions and might require some tinkering if you want to run them elsewhere. 
+For that, see `requirements.txt` for the Jupyter Notebook related dependencies and the platform specific dependencies from the official installation instructions of your platform.
+
 
 ## Usage
 
@@ -66,10 +69,17 @@ Currently, gid is `1999` in the container.
 </details>
 
 
-## For running the container, use:
+## For running the container
+
+This assumes that you have cloned this repository.
+Exercise-related notebooks and firmware are located in [exercises](exercises) directory. 
+We need to mount them so that the device can use them inside container.
+You can also locally modify these files in the host system and changes are reflected into the container.
+
+To do that and to start the jupyter server, run:
 
 ```console
-docker run -it --rm  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name cwtest ghcr.io/ouspg/chipwhisperer:latest
+docker run -it --rm  -v "$(pwd)/exercises:/home/appuser/jupyter"  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name chipwhisperer ghcr.io/ouspg/chipwhisperer:latest
 ```
 
 You can find jupyter notebooks from `localhost:8888`, and the password is `jupyter`.

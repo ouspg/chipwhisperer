@@ -1,22 +1,35 @@
-# Base Alpine Image
-FROM alpine:latest
+# Base debian Image
+FROM debian:12-slim
 
 LABEL org.opencontainers.image.description "Docker image for ChipWhisperer platform on Alpine Linux with CW303 and CWNANO support."
 LABEL org.opencontainers.image.source "https://github.com/ouspg/chipwhisperer"
 
 ENV USER="appuser"
+ENV VIRTUAL_ENV=/opt/chipwhisperer
 
 # System setup
-RUN echo "chipwhisperer" > /etc/hostname && \
-    apk update && \
-    apk add --no-cache python3 py3-pip git gcc-avr avr-libc gcc-arm-none-eabi libc-dev musl-dev newlib-arm-none-eabi make nano vim udev bash py3-wheel py3-matplotlib py3-scipy py3-numpy py3-pandas py3-psutil libusb mpfr-dev gmp-dev mpc1-dev libffi-dev usbutils
 
-RUN addgroup -S $USER && \
-    adduser -s /sbin/nologin --disabled-password -G $USER $USER &&  \
-    addgroup -S plugdev && addgroup -g 1999 chipwhisperer && \
-    addgroup "$USER" plugdev && \
-    addgroup "$USER" chipwhisperer && \
-    addgroup "$USER" dialout 
+RUN echo "chipwhisperer" > /etc/hostname && \
+    apt-get update && \
+    apt-get install -y \
+    uuid-dev curl \
+    libusb-dev make git avr-libc gcc-avr \
+    gcc-arm-none-eabi libusb-1.0-0-dev usbutils
+
+RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="/usr/" sh && \
+    chmod 755 /usr/bin/uv
+
+ENV PATH="/root/.cargo/bin:$PATH"
+
+RUN groupadd --system "$USER" && \
+    useradd -s /usr/sbin/nologin --no-create-home -g "$USER" "$USER" && \
+    groupadd --gid 1999 chipwhisperer && \
+    usermod -aG plugdev "$USER" && \
+    usermod -aG chipwhisperer "$USER" && \
+    usermod -aG dialout "$USER" && \
+    mkdir -p "$VIRTUAL_ENV" && \
+    chown "$USER:$USER" "$VIRTUAL_ENV"
+
 
 COPY --chown=$USER jupyter_notebook_config.py /home/$USER/.jupyter/
 # USB setup
@@ -26,22 +39,21 @@ USER appuser
 COPY requirements.txt requirements.txt
 RUN git config --global user.name "example" && \
     git config --global user.email "example@example.com" && \
-    python3 -m pip install --upgrade pip && \
-    pip3 install --no-warn-script-location -r requirements.txt
+    uv venv --python 3.8 "$VIRTUAL_ENV" && \
+    uv pip install -r requirements.txt
 
 # Jupyter password setup
 ARG NOTEBOOK_PASS
-RUN python3 -c "import os;from jupyter_server.auth import passwd; print('\nc.ServerApp.password=\'' + passwd(os.getenv('NOTEBOOK_PASS')) + '\'')" >> /home/$USER/.jupyter/jupyter_notebook_config.py
+# 'jupyter' password in hashed format
+RUN echo "\nc.ServerApp.password='argon2:\$argon2id\$v=19\$m=10240,t=10,p=8\$DTTIwTEnDbEOyNokTlBUFQ\$noFWTuC3jabiEhivkK0tcJ/RkDu4xLy0GE3qJKckL1g'" >> /home/$USER/.jupyter/jupyter_notebook_config.py
 
-COPY  --chown=$USER firmware /home/appuser/firmware
-COPY --chown=$USER jupyter /home/appuser/jupyter
 
 WORKDIR /home/appuser/jupyter
 
 # Expose Jupyter port
 EXPOSE 8888
 
-ENV PATH="/home/appuser/.local/bin:$PATH"
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Command to start the container
-CMD ["jupyter", "notebook", "--no-browser"]
+CMD ["uv", "run", "jupyter", "nbclassic", "--no-browser"]

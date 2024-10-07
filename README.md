@@ -66,10 +66,17 @@ Currently, gid is `1999` in the container.
 </details>
 
 
-## For running the container, use:
+## For running the container
+
+This assumes that you have cloned this repository.
+Exercise-related notebooks and firmware are located in [exercises](exercises) directory. 
+We need to mount them so that the device can use them inside container.
+You can also locally modify these files in the host system and changes are reflected into the container.
+
+To do that and to start the jupyter server, run:
 
 ```console
-docker run -it --rm  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name cwtest ghcr.io/ouspg/chipwhisperer:latest
+docker run -it --rm  -v "$(pwd)/exercises:/home/appuser/jupyter"  --device=/dev/bus/usb:/dev/bus/usb -p 8888:8888 --name chipwhisperer ghcr.io/ouspg/chipwhisperer:latest
 ```
 
 You can find jupyter notebooks from `localhost:8888`, and the password is `jupyter`.

@@ -41,13 +41,10 @@ RUN git config --global user.name "example" && \
     git config --global user.email "example@example.com" && \
     uv venv --python 3.8 "$VIRTUAL_ENV" && \
     uv pip install -r requirements.txt
-    # uv pip install nbstripout wheel matplotlib scipy numpy panda psutil tqdm pyusb chipwhisperer nbclassic
-    # && \
 
 # Jupyter password setup
 ARG NOTEBOOK_PASS
-
-# jupyter password in hashed format
+# 'jupyter' password in hashed format
 RUN echo "\nc.ServerApp.password='argon2:\$argon2id\$v=19\$m=10240,t=10,p=8\$DTTIwTEnDbEOyNokTlBUFQ\$noFWTuC3jabiEhivkK0tcJ/RkDu4xLy0GE3qJKckL1g'" >> /home/$USER/.jupyter/jupyter_notebook_config.py
 
 

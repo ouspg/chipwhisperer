@@ -5,7 +5,10 @@ Configuration and build files for OCI-based ChipWhisperer environment image, whi
 
 The environment is used in the [Software and Hardware Security course](https://github.com/ouspg/SoftwareHardwareSec), in the exercise week 5.
 This particular environment is intended for *Linux systems*.
-If you cannot use one, you need to consult the official instructions for installing in platforms, and then use the provided notebooks from here.
+
+Unfortunately, the current version of the notebooks requires some legacy versions and might require some tinkering if you want to run them elsewhere. 
+For that, see `requirements.txt` for the Jupyter Notebook related dependencies and the platform specific dependencies from the official installation instructions of your platform.
+
 
 ## Usage
 

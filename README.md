@@ -36,7 +36,7 @@ chown <username>:<username> /dev/bus/usb/001/002
 If you want to give these permissions for the container user (`appuser`) after starting it, you can `exec` into it.
 Check a bit more below how to start the container.
 ```console
-docker exec -it --user=root cwtest bash
+docker exec -it --user=root chipwhisperer bash
 ```
 And do the previous.
 
